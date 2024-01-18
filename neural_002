@@ -1,0 +1,82 @@
+#1.
+def string_alternative():
+    x = input("enter your first_name")
+    y = input("enter your last_name")
+    str = x + " " + y
+    print(str[::2])
+string_alternative()
+
+#2.
+from collections import Counter
+
+def count_words_in_line(line):
+    words = line.split()
+    return Counter(words)
+
+def main():
+    input_file_path = 'input.txt'
+    output_file_path = 'output.txt'
+
+    with open(input_file_path, 'r') as input_file:
+        lines = input_file.readlines()
+
+    word_counts = Counter()
+
+    print("Input:")
+    for line in lines:
+        line = line.strip()
+        print(line)
+        line_word_counts = count_words_in_line(line)
+        word_counts += line_word_counts
+
+    print("\nWord_Count:")
+    for word, count in word_counts.items():
+        print(f"{word}: {count}")
+
+    with open(output_file_path, 'w') as output_file:
+        output_file.write("Input:\n")
+        output_file.writelines(lines)
+        output_file.write("\nWord_Count:\n")
+        for word, count in word_counts.items():
+            output_file.write(f"{word}: {count}\n")
+
+    print(f"\nOutput stored in {output_file_path}")
+
+if __name__ == "__main__":
+    main()
+
+#3.
+def convert_heights_nested_loop(heights_inches):
+    heights_cm = []
+    for height in heights_inches:
+        height_cm = height * 2.54
+        heights_cm.append(round(height_cm, 2))
+    return heights_cm
+
+
+def convert_heights_list_comprehension(heights_inches):
+    return [round(height * 2.54, 2) for height in heights_inches]
+
+
+def main():
+    heights_inches = []
+    num_customers = int(input("Enter the number of customers: "))
+
+    for i in range(num_customers):
+        height = float(input(f"Enter height for customer {i + 1} (in inches): "))
+        heights_inches.append(height)
+
+    heights_cm_nested_loop = convert_heights_nested_loop(heights_inches)
+
+    heights_cm_list_comprehension = convert_heights_list_comprehension(heights_inches)
+
+    print("\nHeights (in inches):", heights_inches)
+    print("\nOutput using Nested Interactive Loop:")
+    print(heights_cm_nested_loop)
+
+    print("\nOutput using List Comprehension:")
+    print(heights_cm_list_comprehension)
+
+
+if __name__ == "__main__":
+    main()
